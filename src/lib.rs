@@ -179,6 +179,13 @@ where
         }
     }
 
+    pub fn with_level(self, level: bool) -> Self {
+        Self {
+            config: self.config.with_level(level),
+            ..self
+        }
+    }
+
     fn styled(&self, style: Style, text: impl AsRef<str>) -> String {
         if self.config.ansi {
             style.paint(text.as_ref()).to_string()
@@ -346,13 +353,15 @@ where
         #[cfg(not(feature = "tracing-log"))]
         let metadata = event.metadata();
 
-        let level = metadata.level();
-        let level = if self.config.ansi {
-            ColorLevel(level).to_string()
-        } else {
-            level.to_string()
-        };
-        write!(&mut event_buf, "{level}", level = level).expect("Unable to write to buffer");
+        if self.config.level {
+            let level = metadata.level();
+            let level = if self.config.ansi {
+                ColorLevel(level).to_string()
+            } else {
+                level.to_string()
+            };
+            write!(&mut event_buf, "{level}", level = level).expect("Unable to write to buffer");
+        }
 
         if self.config.targets {
             let target = metadata.target();

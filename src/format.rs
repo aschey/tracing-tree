@@ -45,6 +45,7 @@ pub struct Config {
     pub verbose_exit: bool,
     /// Whether to print squiggly brackets (`{}`) around the list of fields in a span.
     pub bracketed_fields: bool,
+    pub level: bool,
 }
 
 impl Config {
@@ -102,6 +103,10 @@ impl Config {
         }
     }
 
+    pub fn with_level(self, level: bool) -> Self {
+        Self { level, ..self }
+    }
+
     pub(crate) fn prefix(&self) -> String {
         let mut buf = String::new();
         if self.render_thread_ids {
@@ -138,6 +143,7 @@ impl Default for Config {
             verbose_entry: false,
             verbose_exit: false,
             bracketed_fields: false,
+            level: true,
         }
     }
 }
