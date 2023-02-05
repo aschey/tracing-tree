@@ -236,14 +236,14 @@ impl<'a> Visit for FmtEvent<'a> {
         let comma = if self.comma { "," } else { "" };
         match field.name() {
             "message" => {
-                write!(buf, "{} {:?}", comma, value).unwrap();
+                write!(buf, "{comma} {value:?}").unwrap();
                 self.comma = true;
             }
             // Skip fields that are actually log metadata that have already been handled
             #[cfg(feature = "tracing-log")]
             name if name.starts_with("log.") => {}
             name => {
-                write!(buf, "{} {}={:?}", comma, name, value).unwrap();
+                write!(buf, "{comma} {name}={value:?}").unwrap();
                 self.comma = true;
             }
         }

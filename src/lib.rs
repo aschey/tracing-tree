@@ -39,7 +39,7 @@ impl Data {
 
 impl Visit for Data {
     fn record_debug(&mut self, field: &Field, value: &dyn fmt::Debug) {
-        self.kvs.push((field.name(), format!("{:?}", value)))
+        self.kvs.push((field.name(), format!("{value:?}")))
     }
 }
 #[derive(Debug)]
@@ -203,13 +203,13 @@ where
         let mut kvs = kvs.into_iter();
         if let Some((k, v)) = kvs.next() {
             if k == "message" {
-                write!(buf, "{}", v)?;
+                write!(buf, "{v}")?;
             } else {
-                write!(buf, "{}={}", k, v)?;
+                write!(buf, "{k}={v}")?;
             }
         }
         for (k, v) in kvs {
-            write!(buf, ", {}={}", k, v)?;
+            write!(buf, ", {k}={v}")?;
         }
         Ok(())
     }
@@ -361,7 +361,7 @@ where
             } else {
                 level.to_string()
             };
-            write!(&mut event_buf, "{level}", level = level).expect("Unable to write to buffer");
+            write!(&mut event_buf, "{level}").expect("Unable to write to buffer");
         }
 
         if self.config.targets {
