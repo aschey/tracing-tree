@@ -1,29 +1,29 @@
 [package]
-name = "tracing-tree"
-version = "0.2.2"
-authors = ["David Barsky <me@davidbarsky.com>", "Nathan Whitaker"]
+authors = ["David Barsky <me@davidbarsky.com>", "Nathan Whitaker", "Austin Schey <aschey13@gmail.com>"]
+description = "A Tracing Layer which prints a tree of spans and events."
 edition = "2018"
 license = "MIT OR Apache-2.0"
-description = "A Tracing Layer which prints a tree of spans and events."
-repository = "https://github.com/davidbarsky/tracing-tree"
+name = "tracing-tree2"
 readme = "README.md"
+repository = "https://github.com/aschey/tracing-tree"
+version = "0.3.0"
 
 [dependencies]
-tracing-core = "0.1"
-tracing-subscriber = { version = "0.3", default-features = false, features = ["registry", "fmt", "std"] }
-nu-ansi-term = "0.46.0"
 atty = "0.2"
-tracing-log = { version = "0.1", optional = true }
+nu-ansi-term = "0.46.0"
+tracing-core = "0.1"
+tracing-log = {version = "0.1", optional = true}
+tracing-subscriber = {version = "0.3", default-features = false, features = ["registry", "fmt", "std"]}
 
 [features]
 default = ["tracing-log"]
 
 [dev-dependencies]
-tracing = "0.1"
-glob = "0.3"
 assert_cmd = "1"
+glob = "0.3"
 log = "0.4"
+tracing = "0.1"
 
 [[test]]
-name = "ui"
 harness = false
+name = "ui"

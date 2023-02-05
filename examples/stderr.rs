@@ -1,6 +1,6 @@
 use tracing::{debug, info, instrument};
 use tracing_subscriber::{layer::SubscriberExt, registry::Registry};
-use tracing_tree::HierarchicalLayer;
+use tracing_tree2::HierarchicalLayer;
 
 #[instrument]
 fn nth_fibonacci(n: u64) -> u64 {

@@ -45,6 +45,7 @@ pub struct Config {
     pub verbose_exit: bool,
     /// Whether to print squiggly brackets (`{}`) around the list of fields in a span.
     pub bracketed_fields: bool,
+    /// Whether to include the log level in the output.
     pub level: bool,
 }
 

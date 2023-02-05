@@ -179,6 +179,7 @@ where
         }
     }
 
+    /// Whether to include the log level in the output.
     pub fn with_level(self, level: bool) -> Self {
         Self {
             config: self.config.with_level(level),

@@ -1,6 +1,6 @@
 use tracing::{instrument, warn};
 use tracing_subscriber::{layer::SubscriberExt, registry::Registry};
-use tracing_tree::HierarchicalLayer;
+use tracing_tree2::HierarchicalLayer;
 
 fn main() {
     let layer = HierarchicalLayer::default()
