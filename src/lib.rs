@@ -348,10 +348,13 @@ where
         if self.config.timestamps {
             if let Some(start) = start {
                 let elapsed = start.elapsed();
+                let millis = elapsed.as_millis().to_string();
+                let elapsed_padding = 5;
+                let spaces = " ".repeat((elapsed_padding - millis.len()).max(1));
                 write!(
                     &mut event_buf,
-                    "{timestamp}{unit} ",
-                    timestamp = self.styled(Style::new().dimmed(), elapsed.as_millis().to_string()),
+                    "{timestamp}{unit}{spaces}",
+                    timestamp = self.styled(Style::new().dimmed(), millis),
                     unit = self.styled(Style::new().dimmed(), "ms"),
                 )
                 .expect("Unable to write to buffer");
