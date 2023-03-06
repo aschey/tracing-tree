@@ -47,6 +47,8 @@ pub struct Config {
     pub bracketed_fields: bool,
     /// Whether to include the log level in the output.
     pub level: bool,
+    /// Whether to include timestamps in the output.
+    pub timestamps: bool,
 }
 
 impl Config {
@@ -108,6 +110,10 @@ impl Config {
         Self { level, ..self }
     }
 
+    pub fn with_timestamps(self, timestamps: bool) -> Self {
+        Self { timestamps, ..self }
+    }
+
     pub(crate) fn prefix(&self) -> String {
         let mut buf = String::new();
         if self.render_thread_ids {
@@ -145,6 +151,7 @@ impl Default for Config {
             verbose_exit: false,
             bracketed_fields: false,
             level: true,
+            timestamps: true,
         }
     }
 }

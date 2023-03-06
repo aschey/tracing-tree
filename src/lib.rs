@@ -187,6 +187,14 @@ where
         }
     }
 
+    /// Whether to include timestamps in the output.
+    pub fn with_timestamps(self, timestamps: bool) -> Self {
+        Self {
+            config: self.config.with_timestamps(timestamps),
+            ..self
+        }
+    }
+
     fn styled(&self, style: Style, text: impl AsRef<str>) -> String {
         if self.config.ansi {
             style.paint(text.as_ref()).to_string()
@@ -336,15 +344,18 @@ where
             },
             None => None,
         };
-        if let Some(start) = start {
-            let elapsed = start.elapsed();
-            write!(
-                &mut event_buf,
-                "{timestamp}{unit} ",
-                timestamp = self.styled(Style::new().dimmed(), elapsed.as_millis().to_string()),
-                unit = self.styled(Style::new().dimmed(), "ms"),
-            )
-            .expect("Unable to write to buffer");
+
+        if self.config.timestamps {
+            if let Some(start) = start {
+                let elapsed = start.elapsed();
+                write!(
+                    &mut event_buf,
+                    "{timestamp}{unit} ",
+                    timestamp = self.styled(Style::new().dimmed(), elapsed.as_millis().to_string()),
+                    unit = self.styled(Style::new().dimmed(), "ms"),
+                )
+                .expect("Unable to write to buffer");
+            }
         }
 
         #[cfg(feature = "tracing-log")]
